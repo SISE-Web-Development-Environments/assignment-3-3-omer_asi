@@ -37,12 +37,12 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          "https://ass32.herokuapp.com/recipes/randomRecipes"
+          "https://ass32.herokuapp.com/recipes/RandomRecipes/"
         );
 
-        // console.log(response);
-        const recipes = response.data.recipes;
-        this.recipes = [];
+        console.log(response.data);
+        var recipes = response.data;
+        this.recipes = [recipes['Random Recipe 1'],recipes['Random Recipe 2'],recipes['Random Recipe 3']];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
       } catch (error) {

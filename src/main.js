@@ -3,6 +3,7 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 
+
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
@@ -62,6 +63,7 @@ axios.interceptors.response.use(
   }
 );
 
+axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;

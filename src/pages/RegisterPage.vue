@@ -26,41 +26,41 @@
       </b-form-group>
 
       <b-form-group
-        id="input-group-firstname"
+        id="input-group-firstName"
         label-cols-sm="3"
         label="First name:"
-        label-for="firstname"
+        label-for="firstName"
       >
         <b-form-input
-          id="firstname"
-          v-model="$v.form.firstname.$model"
+          id="firstName"
+          v-model="$v.form.firstName.$model"
           type="text"
-          :state="validateState('firstname')"
+          :state="validateState('firstName')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+        <b-form-invalid-feedback v-if="!$v.form.firstName.required">
           First name is required
         </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.firstname.alpha">
+        <b-form-invalid-feedback v-if="!$v.form.firstName.alpha">
           First name can contain only letters
         </b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
-        id="input-group-lastname"
+        id="input-group-lastName"
         label-cols-sm="3"
         label="Last name:"
-        label-for="lastname"
+        label-for="lastName"
       >
         <b-form-input
-          id="lastname"
-          v-model="$v.form.lastname.$model"
+          id="lastName"
+          v-model="$v.form.lastName.$model"
           type="text"
-          :state="validateState('lastname')"
+          :state="validateState('lastName')"
         ></b-form-input>
-        <b-form-invalid-feedback v-if="!$v.form.lastname.required">
+        <b-form-invalid-feedback v-if="!$v.form.lastName.required">
           Last name is required
         </b-form-invalid-feedback>
-        <b-form-invalid-feedback v-else-if="!$v.form.lastname.alpha">
+        <b-form-invalid-feedback v-if="!$v.form.lastName.alpha">
           Last name can contain only letters
         </b-form-invalid-feedback>
       </b-form-group>
@@ -101,10 +101,11 @@
           Your password should be <strong>strong</strong>. <br />
           For that, your password should be also:
         </b-form-text>
-        <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length"
-        >
+        <b-form-invalid-feedback v-if="$v.form.password.required && !$v.form.password.length">
           Have length between 5-10 characters long
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="$v.form.password.required && $v.form.password.length && !$v.form.password.legalpassword">
+          Have at least one digit and one special character
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -154,7 +155,7 @@
       <b-form-group
         id="input-group-piclink"
         label-cols-sm="3"
-        label="Profile Pic:"
+        label="Profile Picture Link:"
         label-for="piclink"
       >
         <b-form-input
@@ -170,12 +171,7 @@
 
 
       <b-button type="reset" variant="danger">Reset</b-button>
-      <b-button
-        type="submit"
-        variant="primary"
-        style="width:250px;"
-        class="ml-5 w-75"
-        >Register</b-button
+      <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75">Register</b-button
       >
       <div class="mt-2">
         You have an account already?
@@ -206,8 +202,11 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
+  helpers 
 } from "vuelidate/lib/validators";
+
+const legalpassword = helpers.regex('legalpassword', /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{5,10}$/)
 
 export default {
   name: "Register",
@@ -221,6 +220,7 @@ export default {
         password: "",
         confirmedPassword: "",
         email: "",
+        piclink: "",
         submitError: undefined
       },
       countries: [{ value: null, text: "", disabled: true }],
@@ -235,11 +235,11 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
-      firstname: {
+      firstName: {
         required,
         alpha
       },
-      lastname: {
+      lastName: {
         required,
         alpha
       },
@@ -248,7 +248,8 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        legalpassword
       },
       confirmedPassword: {
         required,
@@ -257,7 +258,6 @@ export default {
       email: {
         required,
         email
-        // email format
       },
       piclink: {
         required
@@ -280,11 +280,16 @@ export default {
           "https://ass32.herokuapp.com/auth/Register",
           {
             username: this.form.username,
-            password: this.form.password
+            fname: this.form.firstName,
+            lname: this.form.lastName,
+            contry: this.form.country,
+            password: this.form.password,
+            email: this.form.email,
+            profilePic: this.form.piclink
           }
         );
         this.$router.push("/login");
-        // console.log(response);
+        console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
