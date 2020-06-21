@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" class="ml-auto">
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
-      {{ !$root.store.username }}
+      <router-link :to="{ name: 'about' }">About</router-link>|
+      <!-- {{ !$root.store.username }} -->
       <span v-if="!$root.store.username">
-        Guest:
+        Hello Guest:
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
-        {{ $root.store.username }}: <button @click="Logout">Logout</button>|
+        {{ $root.store.username }}: 
+        <b-dropdown text="Personal">
+          <b-dropdown-item><router-link :to="{ name: 'favorites' }">Favorites</router-link></b-dropdown-item>
+          <b-dropdown-item><router-link :to="{ name: 'myRecipes' }">My Recipes</router-link></b-dropdown-item>
+          <b-dropdown-item><router-link :to="{ name: 'familyRecipes' }">Family Recipes</router-link></b-dropdown-item>
+        </b-dropdown>|
+        <button @click="Logout">Logout</button>|
       </span>
     </div>
     <router-view />

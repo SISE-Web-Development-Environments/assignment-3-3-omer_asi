@@ -26,6 +26,46 @@
       </b-form-group>
 
       <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="First name:"
+        label-for="firstname"
+      >
+        <b-form-input
+          id="firstname"
+          v-model="$v.form.firstname.$model"
+          type="text"
+          :state="validateState('firstname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+          First name is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.firstname.alpha">
+          First name can contain only letters
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-lastname"
+        label-cols-sm="3"
+        label="Last name:"
+        label-for="lastname"
+      >
+        <b-form-input
+          id="lastname"
+          v-model="$v.form.lastname.$model"
+          type="text"
+          :state="validateState('lastname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastname.required">
+          Last name is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.lastname.alpha">
+          Last name can contain only letters
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
         id="input-group-country"
         label-cols-sm="3"
         label="Country:"
@@ -89,6 +129,45 @@
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
+        <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="text"
+          :state="validateState('email')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required">
+          Email is required
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.email.email">
+          Email should be in a correct form
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+
+      <b-form-group
+        id="input-group-piclink"
+        label-cols-sm="3"
+        label="Profile Pic:"
+        label-for="piclink"
+      >
+        <b-form-input
+          id="piclink"
+          v-model="$v.form.piclink.$model"
+          type="text"
+          :state="validateState('piclink')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.piclink.required">
+          Username is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
 
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
@@ -156,6 +235,14 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+      firstname: {
+        required,
+        alpha
+      },
+      lastname: {
+        required,
+        alpha
+      },
       country: {
         required
       },
@@ -166,6 +253,14 @@ export default {
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      email: {
+        required,
+        email
+        // email format
+      },
+      piclink: {
+        required
       }
     }
   },
@@ -182,7 +277,7 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          "https://test-for-3-2.herokuapp.com/user/Register",
+          "https://ass32.herokuapp.com/auth/Register",
           {
             username: this.form.username,
             password: this.form.password

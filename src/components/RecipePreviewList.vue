@@ -37,7 +37,7 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/random"
+          "https://ass32.herokuapp.com/recipes/randomRecipes"
         );
 
         // console.log(response);
