@@ -67,16 +67,37 @@ export default {
         return;
       }
 
-      let {
-        analyzedInstructions,
-        instructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
-      } = response.data.recipe;
+      // let {
+      //   analyzedInstructions,
+      //   instructions,
+      //   extendedIngredients,
+      //   aggregateLikes,
+      //   readyInMinutes,
+      //   image,
+      //   title
+      // } = response.data.recipe;
 
+      console.log(response.data.FullRecipe)
+      let image = response.data.FullRecipe.RecipePreview.Picture
+      let title = response.data.FullRecipe.RecipePreview.Name
+      let readyInMinutes = response.data.FullRecipe.RecipePreview.Time
+      let aggregateLikes = response.data.FullRecipe.RecipePreview.Popularity
+      let analyzedInstructions = response.data.FullRecipe.RecipeInner.ingredients
+      let instructions = response.data.FullRecipe.RecipeInner.instructions
+      let extendedIngredients = response.data.FullRecipe.RecipeInner.ingredients
+      
+      
+      
+      // let title = response.data.FullRecipe.RecipePreview.Name
+      // let title = response.data.FullRecipe.RecipePreview.Name
+
+      console.log(analyzedInstructions)
+      console.log(instructions)
+      console.log(extendedIngredients)
+      console.log(aggregateLikes)
+      console.log(readyInMinutes)
+      console.log(image)
+      console.log(title)
       let _instructions = analyzedInstructions
         .map((fstep) => {
           fstep.steps[0].step = fstep.name + fstep.steps[0].step;

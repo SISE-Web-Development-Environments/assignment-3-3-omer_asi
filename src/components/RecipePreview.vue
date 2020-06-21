@@ -1,18 +1,18 @@
 <template>
   <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.Id } }"
+    :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }"
     class="recipe-preview"
   >
     <div class="recipe-body">
-      <img :src="recipe.Picture" class="recipe-image" />
+      <img :src="recipe.metadata.Picture" class="recipe-image" />
     </div>
     <div class="recipe-footer">
-      <div :title="recipe.Name" class="recipe-title">
-        {{ recipe.title }}
+      <div :title="recipe.metadata.Name" class="recipe-title">
+        {{ recipe.metadata.Name }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+        <li>{{ recipe.Time }} minutes</li>
+        <li>{{ recipe.Popularity }} likes</li>
       </ul>
     </div>
   </router-link>
