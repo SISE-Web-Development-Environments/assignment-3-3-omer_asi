@@ -40,7 +40,7 @@ import {
   LayoutPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
-
+axios.defaults.withCredentials = true;
 axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
@@ -64,7 +64,7 @@ axios.interceptors.response.use(
   }
 );
 
-axios.defaults.withCredentials = true;
+
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
@@ -74,12 +74,14 @@ const shared_data = {
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
-    this.$cookies.get("session")
+    //this.$cookies.set("session")
     console.log("login", this.username);
   },
   logout() {
     console.log("logout");
-    localStorage.removeItem("username");
+    console.log(document.cookie)
+    console.log(Vue.$cookies.get("session"))
+    localStorage.removeItem("username");    
     this.username = undefined;
   },
 };

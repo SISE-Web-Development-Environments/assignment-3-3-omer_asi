@@ -14,6 +14,8 @@
               <div >Number Of Dishes: {{ recipe.numOfDished }} dishes</div>
               <div v-if="recipe.vegan">This meal is Vegan :)</div>
               <div v-if="recipe.glutenFree">This meal Gluten Free :)</div>
+              <div v-if="recipe.recipeViewed">This Recipe was already viewed</div>
+              <div v-if="recipe.isFavorites">This is one of your favoriets</div>
             </div>
             Ingredients:
             <ul>
@@ -51,6 +53,9 @@ export default {
       recipe: null
     };
   },
+  mounted() {
+    console.log(this.$cookies.get("session"));
+  },
   async created() {
     try {
       let response;
@@ -59,7 +64,8 @@ export default {
       try {
         //console.log(this.$route.params.recipeId)
         response = await this.axios.get(
-          "http://localhost:3000/recipes/" + this.$route.params.recipeId//"https://ass32.herokuapp.com/recipes/" + this.$route.params.recipeId
+          //"http://localhost:3000/recipes/" + this.$route.params.recipeId, { withCredentials: true }
+          "https://ass32.herokuapp.com/recipes/" + this.$route.params.recipeId, { withCredentials: true }
         );
 
         // console.log("response.status", response.status);
@@ -69,7 +75,7 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
-
+      console.log(response)
       let image = response.data.FullRecipe.RecipePreview.metadata.Picture
       let title = response.data.FullRecipe.RecipePreview.metadata.Name
       let readyInMinutes = response.data.FullRecipe.RecipePreview.Time
@@ -81,8 +87,13 @@ export default {
       let glutenFree = response.data.FullRecipe.RecipePreview.IsGlutenFree
       let numOfDished = response.data.FullRecipe.RecipeInner.numdishes
 
-      //let recipeViewed
-      //let isFavorites
+      let recipeViewed
+      let isFavorites 
+      if (response.data.FullRecipe.RecipePreview.userIndications){
+        recipeViewed = response.data.FullRecipe.RecipePreview.userIndications.DidUserWatched
+        isFavorites = response.data.FullRecipe.RecipePreview.userIndications.IsUserFavorite
+      }
+      
 
       let _instructions = analyzedInstructions
         .map((fstep) => {
@@ -102,7 +113,9 @@ export default {
         title,
         vegan,
         glutenFree,
-        numOfDished
+        numOfDished,
+        recipeViewed,
+        isFavorites
       };
 
       this.recipe = _recipe;
