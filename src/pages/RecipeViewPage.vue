@@ -64,8 +64,8 @@ export default {
       try {
         //console.log(this.$route.params.recipeId)
         response = await this.axios.get(
-          //"http://localhost:3000/recipes/" + this.$route.params.recipeId, { withCredentials: true }
-          "https://ass32.herokuapp.com/recipes/" + this.$route.params.recipeId, { withCredentials: true }
+          "http://localhost:3000/recipes/" + this.$route.params.recipeId, { withCredentials: true }
+          //"https://ass32.herokuapp.com/recipes/" + this.$route.params.recipeId, { withCredentials: true }
         );
 
         // console.log("response.status", response.status);
@@ -75,6 +75,8 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
+      console.log(document.cookie)
+      //console.log(Vue.$cookies.get("session"))
       console.log(response)
       let image = response.data.FullRecipe.RecipePreview.metadata.Picture
       let title = response.data.FullRecipe.RecipePreview.metadata.Name
@@ -93,7 +95,6 @@ export default {
         recipeViewed = response.data.FullRecipe.RecipePreview.userIndications.DidUserWatched
         isFavorites = response.data.FullRecipe.RecipePreview.userIndications.IsUserFavorite
       }
-      
 
       let _instructions = analyzedInstructions
         .map((fstep) => {

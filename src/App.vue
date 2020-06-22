@@ -30,12 +30,14 @@ export default {
   methods: {
     async Logout() {
       const response = await this.axios.post(
-          "https://ass32.herokuapp.com/auth/Logout",
+          //"https://ass32.herokuapp.com/auth/Logout",
+          "http://localhost:3000/auth/Logout",
           {
             withCredentials: true
           }
       );
       console.log(response)
+      console.log(document.cookie)
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
 

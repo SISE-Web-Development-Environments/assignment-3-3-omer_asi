@@ -32,10 +32,10 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          //"http://localhost:3000/recipes/RandomRecipes/" 
-          "https://ass32.herokuapp.com/userrecipes/favorites/"
+          "http://localhost:3000/userrecipes/favorites/" 
+          //"https://ass32.herokuapp.com/userrecipes/favorites/"
         );
-
+        
         console.log(response.data);
         const recipes = response.data;
         this.recipes = [];
