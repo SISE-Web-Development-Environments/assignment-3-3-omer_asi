@@ -21,7 +21,7 @@
           Username length should be between 3-8 characters long
         </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
-          Username alpha
+          Username can contain only letters
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -276,12 +276,9 @@ export default {
     },
     async Register() {
       try {
-        let hash_password = bcrypt.hashSync(
-          this.form.password,
-          parseInt(process.env.bcrypt_saltRounds)
-        );
         const response = await this.axios.post(
-          "https://ass32.herokuapp.com/auth/Register",
+          //"https://ass32.herokuapp.com/auth/Register",
+          "http://localhost:3000/auth/Register",
           {
             username: this.form.username,
             fname: this.form.firstName,

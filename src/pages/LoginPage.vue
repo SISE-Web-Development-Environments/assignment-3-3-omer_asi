@@ -64,6 +64,7 @@
 </template>
 
 <script>
+
 import { required } from "vuelidate/lib/validators";
 export default {
   name: "Login",
@@ -93,10 +94,6 @@ export default {
     },
     async Login() {
       try {
-        let hash_password = bcrypt.hashSync(
-          this.form.password,
-          parseInt(process.env.bcrypt_saltRounds)
-        );
         const response = await this.axios.post(
           //"https://ass32.herokuapp.com/auth/Login",
           "http://localhost:3000/auth/Login",

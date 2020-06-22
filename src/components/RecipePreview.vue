@@ -2,9 +2,9 @@
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }"
     class="recipe-preview"
-  >
-    <div class="recipe-body">
-      <img :src="recipe.metadata.Picture" class="recipe-image" />
+   >
+    <div class="recipe-body" @mouseover="hover = true" @mouseleave="hover = false">
+      <img :src="recipe.metadata.Picture" class="recipe-image image" />
     </div>
     <div class="recipe-footer">
       <div :title="recipe.metadata.Name" class="recipe-title">
@@ -14,14 +14,29 @@
         <li>{{ recipe.Time }} minutes</li>
         <li>{{ recipe.Popularity }} likes</li>
       </ul>
+      <ul class="recipe-overview">
+        <li v-if="recipe.IsVegan">Vegan</li>
+        <li v-if="recipe.IsGlutenFree">Gluten Free</li>
+        <li v-else-if="!recipe.IsGlutenFree">With Gluten</li>
+      </ul>
+      <ul class="recipe-overview">
+        <li v-if="recipe.userIndications.DidUserWatched">Seen This</li>
+        <li v-if="!recipe.userIndications.IsUserFavorite"><AddToFavorites class="RandomRecipes center"/></li>
+        <li v-if="recipe.userIndications.IsUserFavorite">Liked It</li>
+      </ul>
     </div>
   </router-link>
 </template>
 
 <script>
+import AddToFavorites from "../components/AddToFavorites";
 export default {
+  components: {
+    AddToFavorites
+  },
   data() {
     return {
+      hover: false,
     };
   },
   props: {
@@ -29,32 +44,9 @@ export default {
       type: Object,
       required: true
     }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
   }
 };
+
 </script>
 
 <style scoped>
@@ -131,5 +123,15 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
+}
+
+.recipe-body:hover {
+  background: white;
+  opacity: 0.3;
+  display: block;
+  width: 100%;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  
 }
 </style>
