@@ -97,12 +97,13 @@ export default {
           "https://ass32.herokuapp.com/auth/Login",
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            withCredentials: true
           }
         );
-        // console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
+        console.log(response);
+        this.$root.loggedIn = true;
+        //console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {

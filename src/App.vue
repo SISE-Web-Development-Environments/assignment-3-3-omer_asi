@@ -28,7 +28,14 @@
 export default {
   name: "App",
   methods: {
-    Logout() {
+    async Logout() {
+      const response = await this.axios.post(
+          "https://ass32.herokuapp.com/auth/Logout",
+          {
+            withCredentials: true
+          }
+      );
+      console.log(response)
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
 
