@@ -75,7 +75,10 @@
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75">Search</b-button>     
     </b-form>
-
+    <b-dropdown text="Sort by">
+          <b-dropdown-item @click="sortPopularity">Popularity</b-dropdown-item>
+          <b-dropdown-item @click="sortTime">Duration</b-dropdown-item>
+    </b-dropdown>|
   <b-container>
     <b-row >
       <b-col v-for="r in recipes" :key="r.metadata.Id">
@@ -118,8 +121,8 @@ export default {
       recipes: [],
       intolerances: [{ value: null, text: "", disabled: true }],
       diets: [{ value: null, text: "", disabled: true }],
-      cuisines: [{ value: null, text: "", disabled: true }]
-
+      cuisines: [{ value: null, text: "", disabled: true }],
+      byPopularity: true
     };
   },
   validations: {
@@ -159,6 +162,7 @@ export default {
           this.recipes.push(recipes["Recipe "+ index]);
         }
         //this.recipes.push(...recipes);
+        this.sort();
         console.log(this.recipes);
       } catch (error) {
         console.log(error);
@@ -175,8 +179,33 @@ export default {
       this.$nextTick(() => {
         this.$v.$reset();
       });
-    }
-  }
+    },
+    resort(){
+      this.byPopularity=!this.byPopularity;
+      this.sort()
+    },
+    sort(){
+      if(this.byPopularity){
+        this.sortPopularity()
+      }else{
+        this.sortTime()
+      }
+
+    },
+    sortPopularity(){
+      this.byPopularity=true;
+      this.recipes.sort(function(b, a) {
+        return parseFloat(a.Popularity) - parseFloat(b.Popularity);
+      });
+    },
+    sortTime(){
+      this.byPopularity=false;
+      this.recipes.sort(function(a, b) {
+        return parseFloat(a.Time) - parseFloat(b.Time);
+      });
+    }         
+  },
+  
 };
 </script>
 
