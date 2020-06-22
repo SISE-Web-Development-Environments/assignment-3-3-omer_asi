@@ -3,13 +3,14 @@ import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 
-
 import routes from "./routes";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies)
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
@@ -73,6 +74,7 @@ const shared_data = {
   login(username) {
     localStorage.setItem("username", username);
     this.username = username;
+    this.$cookies.get("session")
     console.log("login", this.username);
   },
   logout() {
