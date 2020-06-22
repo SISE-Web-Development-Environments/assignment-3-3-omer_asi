@@ -276,6 +276,10 @@ export default {
     },
     async Register() {
       try {
+        let hash_password = bcrypt.hashSync(
+          this.form.password,
+          parseInt(process.env.bcrypt_saltRounds)
+        );
         const response = await this.axios.post(
           "https://ass32.herokuapp.com/auth/Register",
           {
