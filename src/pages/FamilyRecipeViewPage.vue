@@ -9,11 +9,9 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Number Of Dishes: {{ recipe.numOfDished }} dishes</div>
-              <div v-if="recipe.vegan">This meal is Vegan :)</div>
-              <div v-if="recipe.glutenFree">This meal Gluten Free :)</div>
-              
+              <div>This was created by {{ recipe.owner }}</div>
+              <div>We ate it on {{ recipe.occasion }}</div>
+              <div v-if="recipe.time">Ready in {{ recipe.readyInMinutes }} minutes</div> 
             </div>
             Ingredients:
             <ul>
@@ -56,12 +54,11 @@ export default {
     try {
       let image = this.$route.params.picture
       let title = this.$route.params.name
-      let readyInMinutes = this.$route.params.Time
+      let readyInMinutes = this.$route.params.time
       let instructions = this.$route.params.instructions
       let ingredients = this.$route.params.ingredients
-      let vegan = this.$route.params.IsVegan
-      let glutenFree = this.$route.params.IsGlutenFree
-      let numOfDished = this.$route.params.numdishes
+      let occasion = this.$route.params.occasion
+      let owner = this.$route.params.owner
       let extraInfo = this.$route.params.extraInfo
 
       let _recipe = {
@@ -70,9 +67,8 @@ export default {
         readyInMinutes,
         image,
         title,
-        vegan,
-        glutenFree,
-        numOfDished,
+        occasion,
+        owner,
         extraInfo
       };
 

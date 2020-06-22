@@ -46,7 +46,7 @@ export default {
         this.recipes.push(recipes['Random Recipe 1']);
         this.recipes.push(recipes['Random Recipe 2']);
         this.recipes.push(recipes['Random Recipe 3']);
-        //console.log(this.recipes);
+        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
@@ -56,7 +56,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .container {
   min-height: 400px;
 }
+
 </style>

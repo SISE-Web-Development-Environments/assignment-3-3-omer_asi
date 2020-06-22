@@ -1,7 +1,7 @@
 <template>
   <router-link
-    :to="{ name: 'userrecipe', params: { name: recipe.name, picture: recipe.picture,time: recipe.time,numdishes: recipe.numdishes,instructions: recipe.instructions,
-                                  ingredients: recipe.ingredients, extraInfo: recipe.extraInfo, vegan: recipe.IsVegan, gluten: recipe.IsGlutenFree } }"
+    :to="{ name: 'familyUserRecipe', params: { name: recipe.name, picture: recipe.picture, time: recipe.time, instructions: recipe.instructions,
+                                  ingredients: recipe.ingredients, extraInfo: recipe.extraInfo, occasion: recipe.occasion, owner: recipe.owner } }"
     class="recipe-preview">
     <div class="recipe-body">
       <img :src="recipe.Picture" class="recipe-image" />
@@ -11,8 +11,7 @@
         {{ recipe.name }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.time }} minutes</li>
-        
+        <li v-if="recipe.time">{{ recipe.time }} minutes</li>
       </ul>
     </div>
   </router-link>
