@@ -93,11 +93,15 @@ export default {
     },
     async Login() {
       try {
+        let hash_password = bcrypt.hashSync(
+          this.form.password,
+          parseInt(process.env.bcrypt_saltRounds)
+        );
         const response = await this.axios.post(
           "https://ass32.herokuapp.com/auth/Login",
           {
             username: this.form.username,
-            password: this.form.password
+            password: hash_password
           }
         );
         // console.log(response);
