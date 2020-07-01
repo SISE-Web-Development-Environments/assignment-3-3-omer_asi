@@ -9,17 +9,22 @@
         methods: {
             async addToFavorites() {
                 try {
-                console.log(this.$recipe)
-                const response = await this.axios.get(
-                  "http://localhost:3000/userrecipes/addFavorites/" + this.$recipe.metadata.recipeId, { withCredentials: true }
+                console.log(this.recipe)
+                const response = await this.axios.post(
+                  "http://localhost:3000/userrecipes/addfavorites/" + this.recipe.metadata.Id, { withCredentials: true }
                   //"https://ass32.herokuapp.com/recipes/RandomRecipes/"
                 );
                 console.log(response);
-                
-                console.log(this.recipes);
+                //this.$router.go()
                 } catch (error) {
                   console.log(error);
                 }
+            }
+        },
+        props: {
+            recipe: {
+                type: Object,
+                required: true
             }
         }
     }
