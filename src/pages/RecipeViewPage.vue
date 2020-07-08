@@ -15,7 +15,8 @@
               <div v-if="recipe.vegan">This meal is Vegan :)</div>
               <div v-if="recipe.glutenFree">This meal Gluten Free :)</div>
               <div v-if="recipe.recipeViewed">This Recipe was already viewed</div>
-              <div v-if="recipe.isFavorites">This is one of your favoriets</div>
+              <div v-if="recipe.isFavorites">This is one of your favorites</div>
+              <div v-if="!recipe.isFavorites"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></div>
             </div>
             Ingredients:
             <ul>
@@ -47,7 +48,11 @@
 </template>
 
 <script>
+import AddToFavorites from "../components/AddToFavorites";
 export default {
+  components: {
+    AddToFavorites
+  },
   data() {
     return {
       recipe: null
@@ -78,6 +83,8 @@ export default {
       console.log(document.cookie)
       //console.log(Vue.$cookies.get("session"))
       console.log(response)
+      console.log(this.recipe)
+      let metadata = response.data.FullRecipe.RecipePreview.metadata
       let image = response.data.FullRecipe.RecipePreview.metadata.Picture
       let title = response.data.FullRecipe.RecipePreview.metadata.Name
       let readyInMinutes = response.data.FullRecipe.RecipePreview.Time
@@ -116,7 +123,8 @@ export default {
         glutenFree,
         numOfDished,
         recipeViewed,
-        isFavorites
+        isFavorites,
+        metadata
       };
 
       this.recipe = _recipe;

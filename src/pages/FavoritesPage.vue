@@ -13,6 +13,7 @@
 
 <script>
 import RecipePreview from "../components/RecipePreview";
+import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   
   name: "Favorites",

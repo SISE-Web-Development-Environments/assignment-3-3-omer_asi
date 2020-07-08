@@ -21,8 +21,8 @@
       </ul>
       <ul class="recipe-overview">
         <li v-if="recipe.userIndications.DidUserWatched">Seen This</li>
-        <li v-if="!recipe.userIndications.IsUserFavorite"><AddToFavorites class="RandomRecipes center"/></li>
-        <li v-if="recipe.userIndications.IsUserFavorite">Your favorite</li>
+        <li v-if="!recipe.userIndications.IsUserFavorite"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></li>
+        <li v-if="recipe.userIndications.IsUserFavorite">Liked It</li>
       </ul>
     </div>
   </router-link>
