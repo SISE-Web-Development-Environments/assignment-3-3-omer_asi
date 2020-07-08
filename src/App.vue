@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav" class="ml-auto">
+    <b-navbar id="nav" class="ml-auto">
+      <b-navbar-nav>
       <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
@@ -12,14 +13,15 @@
       </span>
       <span v-else>
         {{ $root.store.username }}: 
-        <b-dropdown text="Personal">
+        <b-nav-item-dropdown text="Personal" right>
           <b-dropdown-item><router-link :to="{ name: 'favorites' }">Favorites</router-link></b-dropdown-item>
           <b-dropdown-item><router-link :to="{ name: 'myRecipes' }">My Recipes</router-link></b-dropdown-item>
           <b-dropdown-item><router-link :to="{ name: 'familyRecipes' }">Family Recipes</router-link></b-dropdown-item>
-        </b-dropdown>|
+        </b-nav-item-dropdown>|
         <button @click="Logout">Logout</button>|
       </span>
-    </div>
+      </b-navbar-nav>
+    </b-navbar>
     <router-view />
   </div>
 </template>
