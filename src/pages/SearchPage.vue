@@ -152,6 +152,7 @@ export default {
         const response = await this.axios.get(
           `http://localhost:3000/search/${this.form.query}/?SearchSize=${this.form.size}&Intolerance=${this.form.intolerance}&Diet=${this.form.diet}&Cuisine=${this.form.cuisine}`  
         );
+        console.log(response.status);
         
         console.log(response.data);
         const recipes = response.data;
