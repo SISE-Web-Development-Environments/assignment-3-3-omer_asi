@@ -2,11 +2,11 @@
   <div class="container">
     <h1 class="title">My Recipes Page</h1>
   <b-container>
-    <b-row >
-      <b-col v-for="r in recipes" :key="r.name">
+    <b-col >
+      <b-row v-for="r in recipes" :key="r.name">
         <UserRecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
+      </b-row>
+    </b-col>
   </b-container>
   </div>
 </template>
