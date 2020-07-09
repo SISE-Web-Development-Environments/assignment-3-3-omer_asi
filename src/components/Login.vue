@@ -107,8 +107,9 @@ export default {
         this.$root.loggedIn = true;
         //console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
-        this.$router.push("/");
-      } catch (err) {
+      this.$router.push("/").catch(() => {
+        this.$forceUpdate();
+      });      } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
