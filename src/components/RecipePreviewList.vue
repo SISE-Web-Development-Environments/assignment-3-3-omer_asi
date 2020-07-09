@@ -16,12 +16,8 @@ export default {
     RecipePreview
   },
   props: {
-    title: {
-      type: String,
-      required: true
-    },
     recipes: {
-      type: Object,
+      type: Array,
       required: true
     }
   },

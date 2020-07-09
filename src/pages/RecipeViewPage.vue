@@ -80,10 +80,10 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
-      console.log(document.cookie)
+      //console.log(document.cookie)
       //console.log(Vue.$cookies.get("session"))
-      console.log(response)
-      console.log(this.recipe)
+      //console.log(response)
+      //console.log(this.recipe)
       let metadata = response.data.FullRecipe.RecipePreview.metadata
       let image = response.data.FullRecipe.RecipePreview.metadata.Picture
       let title = response.data.FullRecipe.RecipePreview.metadata.Name

@@ -1,5 +1,6 @@
 <template>
   <b-container>
+    <!-- <h3>Hi {{ $root.store.username }}</h3> -->
     <h3>
       {{ title }}:
       <slot></slot>
@@ -11,7 +12,7 @@
 <script>
 import RecipePreviewList from "./RecipePreviewList.vue";
 export default {
-  name: "RandomRecipes",
+  name: "LastViewedRecipes",
   components: {
     RecipePreviewList
   },
@@ -33,16 +34,18 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          //"http://localhost:3000/recipes/RandomRecipes/"
-           "https://ass32.herokuapp.com/recipes/RandomRecipes/"
+          "http://localhost:3000/userrecipes/lastRecipes"
+           //"https://ass32.herokuapp.com/userrecipes/lastRecipes"
         );
 
-        //console.log(response.data);
+        //console.log(response);
         const recipes = response.data;
         this.recipes = [];
-        this.recipes.push(recipes['Random Recipe 1']);
-        this.recipes.push(recipes['Random Recipe 2']);
-        this.recipes.push(recipes['Random Recipe 3']);
+        var size = Object.keys(response.data).length;
+        //console.log(size);
+        for (let index = 1; index < size+1; index++) {
+          this.recipes.push(recipes[`Recipe ${index}`].FullRecipe.RecipePreview);
+        }
         //console.log(this.recipes);
       } catch (error) {
         console.log(error);
