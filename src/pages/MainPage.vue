@@ -9,15 +9,7 @@
         <b-col>
           <Login v-if="!$root.store.username"/>
           <!-- {{ !$root.store.username }} -->
-          <LastViewedRecipes v-else
-          title="Last Viewed Recipes"
-          :class="{
-            RandomRecipes: true,
-            blur: !$root.store.username,
-            center: true
-          }"
-          disabled
-          ></LastViewedRecipes>
+          <LastViewedRecipes v-else title="Last Viewed Recipes"/>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
