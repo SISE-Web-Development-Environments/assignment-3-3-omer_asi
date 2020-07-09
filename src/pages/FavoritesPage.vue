@@ -1,13 +1,21 @@
 <template>
   <div class="container">
     <h1 class="title">Favorites Page</h1>
-  <b-container>
-    <b-row >
-      <b-col v-for="r in recipes" :key="r.metadata.Id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+  <b-container v-if="(recipes.length)%5==0">
+    <b-row v-for="i in (recipes.length)/5" :key="i">
+      <b-col v-for="r in i" :key="recipes[r]">
+        <RecipePreview class="recipePreview" :recipe="recipes[r]" />
       </b-col>
     </b-row>
   </b-container>
+  <b-container else>
+    <b-row v-for="i in (recipes.length)/5+1" :key="i">
+      <b-col v-for="r in i" :key="recipes[r]">
+        <RecipePreview class="recipePreview" :recipe="recipes[r]" />
+      </b-col>
+    </b-row>
+  </b-container>
+  <!-- <RecipePreviewList :recipes="recipes"/> -->
   </div>
 </template>
 
@@ -18,12 +26,14 @@ export default {
   
   name: "Favorites",
   components: {
-    RecipePreview
+    RecipePreview,
+    //RecipePreviewList
   },
   
   data() {
     return {
-      recipes: []
+      recipes: [],
+      index: 0
     };
   },
   mounted() {
