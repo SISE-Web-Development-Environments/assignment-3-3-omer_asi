@@ -6,7 +6,6 @@
     <div class="recipe-body" @mouseover="hover = true" @mouseleave="hover = false">
       <img :src="recipe.metadata.Picture" class="recipe-image image" />
     </div>
-    <br/>
     <div class="recipe-footer">
       <div :title="recipe.metadata.Name" class="recipe-title">
         {{ recipe.metadata.Name }}
@@ -54,13 +53,13 @@ export default {
 .recipe-preview {
   display: inline-block;
   width: 90%;
-  height: 100%;
+  height: 50%;
   position: relative;
   margin: 10px 10px;
 }
 .recipe-preview > .recipe-body {
   width: 100%;
-  height: 200px;
+  /* height: 200px; */
   position: relative;
 }
 
