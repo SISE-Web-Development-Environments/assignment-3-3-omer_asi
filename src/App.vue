@@ -1,26 +1,33 @@
 <template>
   <div id="app">
-    <b-navbar id="nav" class="ml-auto">
+    <b-navbar toggleable="lg" type="dark" variant="success">
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
+
       <b-navbar-nav>
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
-      <router-link :to="{ name: 'about' }">About</router-link>|
-      <!-- {{ !$root.store.username }} -->
-      <span v-if="!$root.store.username">
-        Hello Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
-      </span>
-      <span v-else>
-        {{ $root.store.username }}: 
-        <b-nav-item-dropdown text="Personal" right>
-          <b-dropdown-item><router-link :to="{ name: 'favorites' }">Favorites</router-link></b-dropdown-item>
-          <b-dropdown-item><router-link :to="{ name: 'myRecipes' }">My Recipes</router-link></b-dropdown-item>
-          <b-dropdown-item><router-link :to="{ name: 'familyRecipes' }">Family Recipes</router-link></b-dropdown-item>
-        </b-nav-item-dropdown>|
-        <button @click="Logout">Logout</button>|
-      </span>
+        <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
+        <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
+        <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
       </b-navbar-nav>
+
+      <b-navbar-nav class="ml-auto" v-if="!$root.store.username">
+        <b-navbar-brand>Hello Guest</b-navbar-brand>
+        <b-nav-item :to="{ name: 'register' }">Register</b-nav-item>
+        <b-nav-item :to="{ name: 'login' }">Login</b-nav-item>
+      </b-navbar-nav>
+      
+      <b-navbar-nav class="ml-auto" v-else>
+        <b-navbar-brand>Hello {{ $root.store.username }}</b-navbar-brand> 
+        <b-nav-item-dropdown text="Personal" right>
+          <b-dropdown-item :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'myRecipes' }">My Recipes</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'familyRecipes' }">Family Recipes</b-dropdown-item>
+        </b-nav-item-dropdown>
+        <b-nav-item @click="Logout">Logout</b-nav-item>
+      </b-navbar-nav>
+
+      </b-collapse>
     </b-navbar>
     <router-view />
   </div>
@@ -59,18 +66,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

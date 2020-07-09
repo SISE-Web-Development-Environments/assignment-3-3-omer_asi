@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">Search Page</h1>
+    <div>
+    <b-jumbotron header="Search" lead="Get the perfect recipe for you...">    </b-jumbotron>
+    </div>
     <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
 
       <b-form-group
@@ -239,7 +241,12 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  min-height: 400px;
+  background-color:#c0c2c285;
+}
+.jumbotron {
+  background-color:#f0f7f7bb;
+  padding: 1rem 2rem;
+  text-align: center;
 }
 </style>
 

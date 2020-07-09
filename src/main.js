@@ -26,6 +26,7 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  JumbotronPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -38,6 +39,7 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  JumbotronPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 axios.defaults.withCredentials = true;
