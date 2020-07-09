@@ -75,16 +75,26 @@
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75">Search</b-button>     
     </b-form>
+    <b-alert
+      class="mt-2"
+      v-if="form.submitError"
+      variant="warning"
+      dismissible
+      show
+    >
+      Search result are empty: {{ form.submitError }}
+    </b-alert>
     <b-dropdown text="Sort by">
           <b-dropdown-item @click="sortPopularity">Popularity</b-dropdown-item>
           <b-dropdown-item @click="sortTime">Duration</b-dropdown-item>
     </b-dropdown>|
   <b-container>
-    <b-row >
-      <b-col v-for="r in recipes" :key="r.metadata.Id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
+    <!-- <h3>Hi {{ $root.store.username }}</h3> -->
+    <h3>
+      Search Results:
+      <slot></slot>
+    </h3>
+    <RecipePreviewList :recipes="recipes"/>
   </b-container>
   </div>
 </template>
@@ -93,7 +103,7 @@
 import intolerances from "../assets/intolerances";
 import diets from "../assets/diets";
 import cuisines from "../assets/cuisines";
-import RecipePreview from "../components/RecipePreview";
+import RecipePreviewList from "../components/RecipePreviewList";
 import {
   required,
   minLength,
@@ -107,7 +117,7 @@ import {
 export default {  
   name: "search",
   components: {
-    RecipePreview
+    RecipePreviewList
   },  
   data() {
     return {
@@ -137,6 +147,22 @@ export default {
     this.intolerances.push(...intolerances);
     this.diets.push(...diets);
     this.cuisines.push(...cuisines);
+    if(sessionStorage.key("lastSearchParams")!=null){
+      let tmpform = JSON.parse(sessionStorage.getItem("lastSearchParams"));
+      this.form.query = tmpform.query;
+      this.form.size = tmpform.size;
+      this.form.intolerance = tmpform.intolerance;
+      this.form.diet = tmpform.diet;
+      this.form.cuisine = tmpform.cuisine;
+    }
+    if(sessionStorage.key("lastSearchResults")!=null){
+      this.recipes = JSON.parse(sessionStorage.getItem("lastSearchResults"));
+    }
+
+  },
+  beforeDestroy(){
+    sessionStorage.setItem("lastSearchResults",JSON.stringify(this.recipes))
+    sessionStorage.setItem("lastSearchParams",JSON.stringify(this.form))
   },
   methods: {
     validateState(param) {
@@ -153,20 +179,21 @@ export default {
           `http://localhost:3000/search/${this.form.query}/?SearchSize=${this.form.size}&Intolerance=${this.form.intolerance}&Diet=${this.form.diet}&Cuisine=${this.form.cuisine}`  
         );
         console.log(response.status);
-        
+        var size = Object.keys(response.data).length;
+        console.log(size);
+        if(size===0){this.form.submitError = "No results for given parameters."}
         console.log(response.data);
         const recipes = response.data;
         this.recipes = [];
-        var size = Object.keys(response.data).length;
-        console.log(size);
         for (let index = 1; index < size+1; index++) {
           this.recipes.push(recipes["Recipe "+ index]);
         }
         //this.recipes.push(...recipes);
         this.sort();
         console.log(this.recipes);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
       }
     },
     onReset() {
