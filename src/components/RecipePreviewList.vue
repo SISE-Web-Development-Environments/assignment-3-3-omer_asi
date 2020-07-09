@@ -36,7 +36,7 @@ export default {
   mounted() {
     this.size = this.recipes.length;
     console.log("yoyo"+this.size)
-    console.log(this.recipes[0].metadata.Id)
+    //console.log(this.recipes[0].metadata.Id)
   }
 };
 </script>

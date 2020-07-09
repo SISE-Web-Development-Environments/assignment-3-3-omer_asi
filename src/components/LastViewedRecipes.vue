@@ -38,13 +38,13 @@ export default {
            //"https://ass32.herokuapp.com/userrecipes/lastRecipes"
         );
 
-        //console.log(response);
+        console.log(response);
         const recipes = response.data;
         this.recipes = [];
         var size = Object.keys(response.data).length;
         //console.log(size);
         for (let index = 1; index < size+1; index++) {
-          this.recipes.push(recipes[`Recipe ${index}`].FullRecipe.RecipePreview);
+          this.recipes.push(recipes[`Recipe ${index}`]);
         }
         //console.log(this.recipes);
       } catch (error) {

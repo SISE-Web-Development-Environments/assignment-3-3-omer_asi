@@ -6,6 +6,7 @@
     <div class="recipe-body" @mouseover="hover = true" @mouseleave="hover = false">
       <img :src="recipe.metadata.Picture" class="recipe-image image" />
     </div>
+    <br/>
     <div class="recipe-footer">
       <div :title="recipe.metadata.Name" class="recipe-title">
         {{ recipe.metadata.Name }}
