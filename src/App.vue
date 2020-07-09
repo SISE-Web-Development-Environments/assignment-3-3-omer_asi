@@ -42,7 +42,6 @@ export default {
       console.log(document.cookie)
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
-
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
