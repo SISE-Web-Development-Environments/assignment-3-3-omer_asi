@@ -1,31 +1,26 @@
 <template>
+  <b-container class="w3-main w3-content w3-padding">
   <router-link
-    :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }"
-    class="recipe-preview"
-   >
-    <div class="recipe-body" @mouseover="hover = true" @mouseleave="hover = false">
-      <img :src="recipe.metadata.Picture" class="recipe-image image" />
+    :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }">
+    <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
+      <img :src="recipe.metadata.Picture" />
     </div>
-    <div class="recipe-footer">
-      <div :title="recipe.metadata.Name" class="recipe-title">
+    </router-link>
+    <div class="w3-row-padding w3-padding-16 w3-center">
+      <h3 :title="recipe.metadata.Name" >
         {{ recipe.metadata.Name }}
+      </h3>
+      <p>{{ recipe.Time }} minutes | {{ recipe.Popularity }} likes<p>
+      <p v-if="recipe.IsVegan">Vegan</p>
+      <p v-if="recipe.IsGlutenFree">Gluten Free</p>
+      <p v-else-if="!recipe.IsGlutenFree">With Gluten</p>
+      <div v-if="recipe.userIndications">
+        <p v-if="recipe.userIndications.DidUserWatched">Seen This</p>
+        <p v-if="!recipe.userIndications.IsUserFavorite && $root.store.username"><AddToFavorites :recipe="recipe"/></p>
+        <p v-if="recipe.userIndications.IsUserFavorite">Liked It</p>
       </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.Time }} minutes</li>
-        <li>{{ recipe.Popularity }} likes</li>
-      </ul>
-      <ul class="recipe-overview">
-        <li v-if="recipe.IsVegan">Vegan</li>
-        <li v-if="recipe.IsGlutenFree">Gluten Free</li>
-        <li v-else-if="!recipe.IsGlutenFree">With Gluten</li>
-      </ul>
-      <ul v-if="recipe.userIndications" class="recipe-overview">
-        <li v-if="recipe.userIndications.DidUserWatched">Seen This</li>
-        <li v-if="!recipe.userIndications.IsUserFavorite && $root.store.username"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></li>
-        <li v-if="recipe.userIndications.IsUserFavorite">Liked It</li>
-      </ul>
     </div>
-  </router-link>
+  </b-container>
 </template>
 
 <script>
@@ -42,87 +37,25 @@ export default {
   props: {
     recipe: {
       type: Object,
-      required: true
+      required: true 
     }
   }
 };
 
 </script>
 
-<style scoped>
-.recipe-preview {
-  display: inline-block;
-  width: 90%;
-  height: 50%;
-  position: relative;
-  margin: 10px 10px;
-}
-.recipe-preview > .recipe-body {
-  width: 100%;
-  /* height: 200px; */
-  position: relative;
+<style>
+@import 'https://www.w3schools.com/w3css/4/w3.css';
+@import 'https://fonts.googleapis.com/css?family=Karma';
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+p {
+  font-family: "Karma", sans-serif;
+  font-size: 16px;
 }
 
-.recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: block;
-  width: 98%;
-  height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-}
-
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
-}
-
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview {
-  padding: 5px 10px;
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
-  margin-bottom: 0px;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  width: 90px;
-  display: table-cell;
-  text-align: center;
+img{
+  width:100%
 }
 
 .recipe-body:hover {
