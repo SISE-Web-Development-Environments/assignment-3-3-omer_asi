@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <h1 class="title">Main Page</h1>
+    <slot/>
+    <h1 class="title w3-center w3-padding-16">Main Page</h1>
     <b-container>
       <b-row>
         <b-col>
@@ -8,13 +9,7 @@
         </b-col>
         <b-col>
           <Login v-if="!$root.store.username"/>
-          <!-- {{ !$root.store.username }} -->
           <LastViewedRecipes v-else title="Last Viewed Recipes"/>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
     </b-col>
     </b-row>
     </b-container>

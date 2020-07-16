@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Favorites Page</h1>
+    <h1 class="title w3-center w3-padding-16">Favorites Page</h1>
   <RecipePreviewList :recipes="recipes"/>
   </div>
 </template>
