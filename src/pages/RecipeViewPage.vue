@@ -16,8 +16,8 @@
               <div v-if="recipe.glutenFree">This meal Gluten Free :)</div>
               <div v-if="recipe.recipeViewed">This Recipe was already viewed</div>
               <div id="favs">
-                <div v-if="favorite" >This is one of your favorites</div>
-                <div v-if="!favorite && $root.store.username"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></div>
+                <div v-if="!recipe.isFavorites && $root.store.username"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></div>
+                <div v-if="recipe.isFavorites" >This is one of your favorites</div>
               </div>
             </div>
             Ingredients:
@@ -57,8 +57,7 @@ export default {
   },
   data() {
     return {
-      recipe: null,
-      favorite: false
+      recipe: null
     };
   },
   async created() {
