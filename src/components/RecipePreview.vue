@@ -12,7 +12,7 @@
     </router-link>
     </b-col>
         <b-col>
-      <h3 :title="recipe.metadata.Name" >
+      <h3 style="text-align:center" :title="recipe.metadata.Name" >
         {{ recipe.metadata.Name }}
       </h3>
       <p>{{ recipe.Time }} minutes | {{ recipe.Popularity }} likes<p>
