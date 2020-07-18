@@ -1,5 +1,7 @@
 <template>
+
   <div class="container">
+        <p><br></p>
     <div>
     <b-jumbotron header="Search" lead="Get the perfect recipe for you...">    </b-jumbotron>
     </div>
@@ -75,7 +77,7 @@
       </b-form-group>
 
       <b-button type="reset" variant="danger">Reset</b-button>
-      <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75">Search</b-button>     
+      <b-button type="submit" variant="primary" style="width:250px; float: right;" class="ml-5 w-75">Search</b-button>     
     </b-form>
     <b-alert
       class="mt-2"
@@ -86,11 +88,14 @@
     >
       Search result are empty: {{ form.submitError }}
     </b-alert>
+    <br>
     <b-dropdown text="Sort by">
           <b-dropdown-item @click="sortPopularity">Popularity</b-dropdown-item>
           <b-dropdown-item @click="sortTime">Duration</b-dropdown-item>
-    </b-dropdown>|
-  <b-container>
+    </b-dropdown>    
+    <p><br></p>
+  <b-container v-if="recipes.length != 0">
+  <br>
     <!-- <h3>Hi {{ $root.store.username }}</h3> -->
     <h3>
       Search Results:
@@ -180,11 +185,8 @@ export default {
         const response = await this.axios.get(
           `http://localhost:3000/search/${this.form.query}/?SearchSize=${this.form.size}&Intolerance=${this.form.intolerance}&Diet=${this.form.diet}&Cuisine=${this.form.cuisine}`  
         );
-        console.log(response.status);
         var size = Object.keys(response.data).length;
-        console.log(size);
         if(size===0){this.form.submitError = "No results for given parameters."}
-        console.log(response.data);
         const recipes = response.data;
         this.recipes = [];
         for (let index = 1; index < size+1; index++) {
@@ -192,9 +194,7 @@ export default {
         }
         //this.recipes.push(...recipes);
         this.sort();
-        console.log(this.recipes);
       } catch (err) {
-        console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },

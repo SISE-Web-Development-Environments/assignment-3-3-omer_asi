@@ -38,7 +38,7 @@ export default {
            //"https://ass32.herokuapp.com/userrecipes/lastRecipes"
         );
 
-        //console.log(response);
+        console.log(response);
         const recipes = response.data;
         this.recipes = [];
         var size = Object.keys(response.data).length;
