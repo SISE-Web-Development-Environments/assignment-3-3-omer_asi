@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:style="{ backgroundImage: 'url(https://res.cloudinary.com/onag/image/upload/v1595090657/lukas-blazek-f-TWhXOrLiU-unsplash_dcng1p.jpg)' }">
     <b-navbar toggleable="lg" type="dark" variant="success">
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -66,5 +66,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size:2300px 1100px;
+  background-position: center;
+  background-attachment: fixed;
 }
 </style>

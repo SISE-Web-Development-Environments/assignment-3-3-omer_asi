@@ -97,10 +97,8 @@
   <b-container v-if="recipes.length != 0">
   <br>
     <!-- <h3>Hi {{ $root.store.username }}</h3> -->
-    <h3>
-      Search Results:
-      <slot></slot>
-    </h3>
+    <b-jumbotron class="title w3-center w3-padding-4"  header="Search Results:"></b-jumbotron>
+
     <RecipePreviewList :recipes="recipes"/>
   </b-container>
   </div>

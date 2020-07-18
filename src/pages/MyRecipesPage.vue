@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h1 class="title">My Recipes</h1>
+    <p><br></p>
+    <b-jumbotron class="title w3-center w3-padding-16"  header="My Recipes"></b-jumbotron>
+    <div v-if="recipes.length===0">
+    <b-jumbotron class="title w3-center w3-padding-16" header="Opss..." lead="Seems that you have not entered any private recipes yet...">    </b-jumbotron>
+    </div>
   <b-container>
     <b-col >
       <b-row v-for="r in recipes" :key="r.name">

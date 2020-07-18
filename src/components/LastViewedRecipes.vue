@@ -1,10 +1,7 @@
 <template>
   <b-container>
     <!-- <h3>Hi {{ $root.store.username }}</h3> -->
-    <h3>
-      {{ title }}:
-      <slot></slot>
-    </h3>
+    <b-jumbotron class="title w3-center w3-padding-16"  header="Last Viewed Recipes"></b-jumbotron>
     <RecipePreviewList :recipes="recipes"/>
   </b-container>
 </template>

@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h1 class="title w3-center w3-padding-16">Favorites Page</h1>
+    <p><br></p>
+    <b-jumbotron class="title w3-center w3-padding-16"  header="Your Favorites"></b-jumbotron>
+    <div v-if="recipes.length===0">
+    <b-jumbotron class="title w3-center w3-padding-16" header="Opss..." lead="Seems that you have not checked any recipe as favorite yet...">    </b-jumbotron>
+    </div>
   <RecipePreviewList :recipes="recipes"/>
   </div>
 </template>

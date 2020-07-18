@@ -3,8 +3,7 @@
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }">
     <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
-      <b-img rounded alt="Rounded image" v-if="recipe.metadata.Picture" :src="recipe.metadata.Picture" />
-      <b-img rounded alt="Rounded image" v-else src='https://res.cloudinary.com/onag/image/upload/v1595063148/12753943_fp8zsx.jpg' />
+      <img :src="recipe.metadata.Picture" />
     </div>
     </router-link>
     <div class="w3-row-padding w3-padding-16 w3-center">

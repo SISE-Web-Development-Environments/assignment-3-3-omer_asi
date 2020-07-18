@@ -1,9 +1,6 @@
 <template>
   <b-container>
-    <h3>
-      {{ title }}:
-      <slot></slot>
-    </h3>
+    <b-jumbotron class="title w3-center w3-padding-16"  header="Random Recipes"></b-jumbotron>
     <RecipePreviewList :recipes="recipes"/>
   </b-container>
 </template>
