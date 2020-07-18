@@ -3,7 +3,7 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <b-img rounded alt="Rounded image" :src="recipe.image" class="center" />
       </div>
       <div class="recipe-body">
         <div class="wrapper">
@@ -15,16 +15,16 @@
             </div>
             Ingredients:
             <ul>
-              <li>
-                {{ recipe.ingredients }} 
+              <li v-for="line in splitedIng" :key="line">
+                {{ line }} 
               </li>
             </ul>
             Instructions:
-            <ul>
-              <li>
-                {{ recipe.instructions }}
+            <ol>
+              <li v-for="line in splitedIns" :key="line">
+                {{ line }} 
               </li>
-            </ul>
+            </ol>
             Extra informaton:
             <ul>
               <li >
@@ -49,6 +49,15 @@ export default {
     return {
       recipe: null
     };
+  },
+  computed: {
+    // a computed getter
+    splitedIng: function () {
+      return this.$route.params.ingredients.split('\\n');
+    },
+    splitedIns: function () {
+      return this.$route.params.instructions.split('\\n');
+    }
   },
   async created() {
     try {

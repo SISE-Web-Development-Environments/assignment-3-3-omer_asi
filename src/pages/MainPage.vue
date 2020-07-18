@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <slot/>
-    <h1 class="title w3-center w3-padding-16">Main Page</h1>
+    <p></p>
     <b-container>
       <b-row>
         <b-col>

@@ -79,11 +79,8 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     //this.$cookies.set("session")
-    console.log("login", this.username);
   },
   logout() {
-    console.log("logout");
-    console.log(document.cookie)
     Vue.$cookies.remove("session")
     Vue.$cookies.remove("_xsrf")
     console.log(document.cookie)
@@ -91,7 +88,6 @@ const shared_data = {
     this.username = undefined;
   },
 };
-console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;
 
 new Vue({

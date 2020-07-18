@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Family Recipes Page</h1>
+    <h1 class="title">Family Recipes</h1>
   <b-container>
     <b-col >
       <b-row v-for="r in recipes" :key="r.name">

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">My Recipes Page</h1>
+    <h1 class="title">My Recipes</h1>
   <b-container>
     <b-col >
       <b-row v-for="r in recipes" :key="r.name">
@@ -36,16 +36,13 @@ export default {
           //"https://ass32.herokuapp.com/userrecipes/userPrivateRecipes/"
         );
         
-        console.log(response);
         const recipes = response.data;
         this.recipes = [];
         var size = Object.keys(response.data).length;
-        console.log(size);
         for (let index = 1; index < size+1; index++) {
           this.recipes.push(recipes[index]);
         }
         //this.recipes.push(...recipes);
-        console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
