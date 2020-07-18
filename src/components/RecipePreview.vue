@@ -1,15 +1,17 @@
 <template>
   <b-container>
     <b-row>
-    <b-col>
+
+
+        <b-col>
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }">
     <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
-      <b-img rounded alt="Rounded image" :src="recipe.metadata.Picture" />
+      <img rounded alt="Rounded image" :src="recipe.metadata.Picture" />
     </div>
     </router-link>
     </b-col>
-    <b-col>
+        <b-col>
       <h3 :title="recipe.metadata.Name" >
         {{ recipe.metadata.Name }}
       </h3>
@@ -63,11 +65,9 @@ p {
 }
 
 img {
-  max-height: 286.81px;
-  max-width: 431px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+max-width:100%;
+max-height:100%;
+margin-bottom: 150px;
 }
 
 .recipe-body:hover {
