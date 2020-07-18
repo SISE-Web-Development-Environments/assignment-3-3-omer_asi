@@ -39,7 +39,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
 p {
   font-family: "Karma", sans-serif;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 img {

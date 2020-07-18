@@ -137,6 +137,12 @@ export default {
 </script>
 
 <style scoped>
+div{
+  font-family: "Karma", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .wrapper {
   display: flex;
 }
