@@ -42,8 +42,12 @@ p {
   font-size: 16px;
 }
 
-img{
-  width:100%
+img {
+  max-height: 286.81px;
+  max-width: 431px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .recipe-body:hover {

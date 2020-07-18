@@ -67,8 +67,10 @@ export default {
   color: #2c3e50;
   min-height: 100vh;
   background-repeat: no-repeat;
-  background-size:2300px 1100px;
+  background-size:2000px 1000px;
   background-position: center;
   background-attachment: fixed;
 }
+
+
 </style>

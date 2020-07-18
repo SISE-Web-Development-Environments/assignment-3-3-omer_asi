@@ -2,6 +2,9 @@
   <b-container>
     <!-- <h3>Hi {{ $root.store.username }}</h3> -->
     <b-jumbotron class="title w3-center w3-padding-16"  header="Last Viewed Recipes"></b-jumbotron>
+    <div v-if="recipes.length===0">
+    <b-jumbotron class="title w3-center w3-padding-16" header="Hey newbie..." lead="Your last watched recipes will appear here">    </b-jumbotron>
+    </div>
     <RecipePreviewList :recipes="recipes"/>
   </b-container>
 </template>

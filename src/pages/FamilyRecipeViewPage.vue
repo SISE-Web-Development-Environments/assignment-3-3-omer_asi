@@ -2,7 +2,7 @@
   <div class="container">
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
-        <h1>{{ recipe.title }}</h1>
+        <b-jumbotron class="title w3-center w3-padding-16"  :header="recipe.title"></b-jumbotron>
         <b-img rounded alt="Rounded image" :src="recipe.image" class="center" />
       </div>
       <div class="recipe-body">

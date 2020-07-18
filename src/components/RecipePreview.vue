@@ -3,7 +3,7 @@
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }">
     <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
-      <img :src="recipe.metadata.Picture" />
+      <b-img rounded alt="Rounded image" :src="recipe.metadata.Picture" />
     </div>
     </router-link>
     <div class="w3-row-padding w3-padding-16 w3-center">
@@ -54,8 +54,12 @@ p {
   font-size: 16px;
 }
 
-img{
-  width:100%
+img {
+  max-height: 286.81px;
+  max-width: 431px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .recipe-body:hover {
