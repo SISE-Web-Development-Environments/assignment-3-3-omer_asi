@@ -1,8 +1,7 @@
 <template>
   <b-container>
-    <!-- <h3>Hi {{ $root.store.username }}</h3> -->
     <b-jumbotron class="title w3-center w3-padding-16"  header="Last Viewed Recipes"></b-jumbotron>
-    <div v-if="recipes.length===0">
+    <div v-if="recipes.length===0 && done">
     <b-jumbotron class="title w3-center w3-padding-16" header="Hey newbie..." lead="Your last watched recipes will appear here">    </b-jumbotron>
     </div>
     <RecipePreviewList :recipes="recipes"/>
@@ -24,7 +23,8 @@ export default {
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
+      done: false
     };
   },
   mounted() {
@@ -45,6 +45,7 @@ export default {
         for (let index = 1; index < size+1; index++) {
           this.recipes.push(recipes[`Recipe ${index}`]);
         }
+        this.done = true;
         //console.log(this.recipes);
       } catch (error) {
         console.log(error);

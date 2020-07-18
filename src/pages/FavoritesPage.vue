@@ -2,7 +2,7 @@
   <div class="container">
     <p><br></p>
     <b-jumbotron class="title w3-center w3-padding-16"  header="Your Favorites"></b-jumbotron>
-    <div v-if="recipes.length===0">
+    <div v-if="recipes.length===0 && done">
     <b-jumbotron class="title w3-center w3-padding-16" header="Opss..." lead="Seems that you have not checked any recipe as favorite yet...">    </b-jumbotron>
     </div>
   <RecipePreviewList :recipes="recipes"/>
@@ -21,7 +21,8 @@ export default {
   data() {
     return {
       recipes: [],
-      index: 0
+      index: 0,
+      done: false
     };
   },
   mounted() {
@@ -43,6 +44,7 @@ export default {
         for (let index = 1; index < size+1; index++) {
           this.recipes.push(recipes[index]);
         }
+        this.done = true;
         //this.recipes.push(...recipes);
         //console.log(this.recipes);
       } catch (error) {

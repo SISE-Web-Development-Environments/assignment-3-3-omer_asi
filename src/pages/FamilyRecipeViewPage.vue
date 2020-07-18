@@ -10,7 +10,7 @@
           <div class="wrapped">
             <div class="mb-3">
               <div>This was created by {{ recipe.owner }}</div>
-              <div>We ate it on {{ recipe.occasion }}</div>
+              <div>We usually eat it on {{ recipe.occasion }}</div>
               <div v-if="recipe.time">Ready in {{ recipe.readyInMinutes }} minutes</div> 
             </div>
             Ingredients:

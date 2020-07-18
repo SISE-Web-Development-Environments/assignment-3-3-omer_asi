@@ -88,17 +88,16 @@
     >
       Search result are empty: {{ form.submitError }}
     </b-alert>
-    <br>
-    <b-dropdown text="Sort by">
-          <b-dropdown-item @click="sortPopularity">Popularity</b-dropdown-item>
-          <b-dropdown-item @click="sortTime">Duration</b-dropdown-item>
-    </b-dropdown>    
+    <br>  
     <p><br></p>
   <b-container v-if="recipes.length != 0">
   <br>
     <!-- <h3>Hi {{ $root.store.username }}</h3> -->
     <b-jumbotron class="title w3-center w3-padding-4"  header="Search Results:"></b-jumbotron>
-
+    <b-dropdown text="Sort by">
+          <b-dropdown-item @click="sortPopularity">Popularity</b-dropdown-item>
+          <b-dropdown-item @click="sortTime">Duration</b-dropdown-item>
+    </b-dropdown>  
     <RecipePreviewList :recipes="recipes"/>
   </b-container>
   </div>
@@ -245,6 +244,10 @@ export default {
   background-color:#f0f7f7bb;
   padding: 1rem 2rem;
   text-align: center;
+}
+form{
+  width: 70%;
+  margin: auto;
 }
 </style>
 

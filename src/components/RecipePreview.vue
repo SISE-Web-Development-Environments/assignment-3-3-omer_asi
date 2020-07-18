@@ -1,12 +1,15 @@
 <template>
-  <b-container class="w3-main w3-content w3-padding">
+  <b-container>
+    <b-row>
+    <b-col>
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }">
     <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
       <b-img rounded alt="Rounded image" :src="recipe.metadata.Picture" />
     </div>
     </router-link>
-    <div class="w3-row-padding w3-padding-16 w3-center">
+    </b-col>
+    <b-col>
       <h3 :title="recipe.metadata.Name" >
         {{ recipe.metadata.Name }}
       </h3>
@@ -19,7 +22,8 @@
         <p v-if="!recipe.userIndications.IsUserFavorite && $root.store.username"><AddToFavorites :recipe="recipe"/></p>
         <p v-if="recipe.userIndications.IsUserFavorite">Liked It</p>
       </div>
-    </div>
+    </b-col>
+      </b-row>
   </b-container>
 </template>
 
@@ -54,6 +58,10 @@ p {
   font-size: 16px;
 }
 
+.container {
+  padding: 8px 16px;
+}
+
 img {
   max-height: 286.81px;
   max-width: 431px;
@@ -71,4 +79,9 @@ img {
   backface-visibility: hidden;
   
 }
+.data{
+  width: 7cm;
+  
+}
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Login</h1>
+    <b-jumbotron class="title w3-center w3-padding-16"  header="Login To Full Site"></b-jumbotron>
     <b-form @submit.prevent="onLogin">
       <b-form-group
         id="input-group-Username"

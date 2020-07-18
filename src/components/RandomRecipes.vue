@@ -57,4 +57,6 @@ export default {
 .row {
   min-height: 400px;
 }
+
+
 </style>

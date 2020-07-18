@@ -2,7 +2,7 @@
   <div class="container">
     <p><br></p>
     <b-jumbotron class="title w3-center w3-padding-16"  header="Family Recipes"></b-jumbotron>
-    <div v-if="recipes.length===0">
+    <div v-if="recipes.length===0 && done">
     <b-jumbotron class="title w3-center w3-padding-16" header="Opss..." lead="Seems that you have not entered any family recipes yet...">    </b-jumbotron>
     </div>
   <b-container>
@@ -26,7 +26,9 @@ export default {
   
   data() {
     return {
-      recipes: []
+      recipes: [],
+      done: false
+
     };
   },
   mounted() {
@@ -48,6 +50,7 @@ export default {
         for (let index = 1; index < size+1; index++) {
           this.recipes.push(recipes[index]);
         }
+        this.done = true;
         //console.log(this.recipes);
       } catch (error) {
         console.log(error);
