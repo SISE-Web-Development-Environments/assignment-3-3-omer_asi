@@ -4,7 +4,7 @@
     :to="{ name: 'userrecipe', params: { name: recipe.name, picture: recipe.picture,time: recipe.time,numdishes: recipe.numdishes,instructions: recipe.instructions,
                                   ingredients: recipe.ingredients, extraInfo: recipe.extraInfo, vegan: recipe.IsVegan, gluten: recipe.IsGlutenFree } }">
     <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
-      <img :src="recipe.Picture" class="recipe-image" />
+      <img :src="recipe.picture" class="recipe-image" />
     </div>
     </router-link>
     <div class="w3-row-padding w3-padding-16 w3-center">

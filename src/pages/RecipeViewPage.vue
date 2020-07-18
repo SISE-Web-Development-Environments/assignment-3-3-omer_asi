@@ -5,7 +5,7 @@
         <h1>{{ recipe.title }}</h1>
         <img :src="recipe.image" class="center" />
       </div>
-      <div class="recipe-body">
+      <div class="">
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
@@ -15,8 +15,10 @@
               <div v-if="recipe.vegan">This meal is Vegan :)</div>
               <div v-if="recipe.glutenFree">This meal Gluten Free :)</div>
               <div v-if="recipe.recipeViewed">This Recipe was already viewed</div>
-              <div v-if="recipe.isFavorites">This is one of your favorites</div>
-              <div v-if="!recipe.isFavorites && $root.store.username"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></div>
+              <div id="favs">
+                <div v-if="favorite" >This is one of your favorites</div>
+                <div v-if="!favorite && $root.store.username"><AddToFavorites class="RandomRecipes center" :recipe="recipe"/></div>
+              </div>
             </div>
             Ingredients:
             <ul>
@@ -55,7 +57,8 @@ export default {
   },
   data() {
     return {
-      recipe: null
+      recipe: null,
+      favorite: false
     };
   },
   async created() {
@@ -98,6 +101,7 @@ export default {
       if (response.data.FullRecipe.RecipePreview.userIndications){
         recipeViewed = response.data.FullRecipe.RecipePreview.userIndications.DidUserWatched
         isFavorites = response.data.FullRecipe.RecipePreview.userIndications.IsUserFavorite
+        this.favorite = isFavorites
       }
 
       let _instructions = analyzedInstructions
