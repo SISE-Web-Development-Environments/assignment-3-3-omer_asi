@@ -1,7 +1,8 @@
 <template>
   <b-container>
-    <b-jumbotron class="title w3-center w3-padding-16"  header="Random Recipes"></b-jumbotron>
+    <b-jumbotron class="title w3-center w3-padding-16"  header="Explore these recipes"></b-jumbotron>
     <RecipePreviewList :recipes="recipes"/>
+    <b-button id="random" @click="updateRecipes">Change Recipes</b-button>
   </b-container>
 </template>
 
@@ -30,8 +31,8 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          "http://localhost:3000/recipes/RandomRecipes/"
-           //"https://ass32.herokuapp.com/recipes/RandomRecipes/"
+          //"http://localhost:3000/recipes/RandomRecipes/"
+           "https://ass32.herokuapp.com/recipes/RandomRecipes/"
         );
 
         //console.log(response.data);
@@ -58,5 +59,11 @@ export default {
   min-height: 400px;
 }
 
-
+#random {
+  background: green;
+  height: 70%;
+  font-size: 25px;
+  margin: auto;
+  display: flex;
+}
 </style>

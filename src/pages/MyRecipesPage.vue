@@ -3,7 +3,7 @@
     <p><br></p>
     <b-jumbotron class="title w3-center w3-padding-16"  header="My Recipes"></b-jumbotron>
     <div v-if="recipes.length===0 && done">
-    <b-jumbotron class="title w3-center w3-padding-16" header="Opss..." lead="Seems that you have not entered any private recipes yet...">    </b-jumbotron>
+    <b-jumbotron class="title w3-center w3-padding-16" header="Oops..." lead="Seems that you have not entered any private recipes yet...">    </b-jumbotron>
     </div>
   <b-container>
     <b-col >
@@ -37,8 +37,8 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          "http://localhost:3000/userrecipes/userPrivateRecipes/" 
-          //"https://ass32.herokuapp.com/userrecipes/userPrivateRecipes/"
+          //"http://localhost:3000/userrecipes/userPrivateRecipes/" 
+          "https://ass32.herokuapp.com/userrecipes/userPrivateRecipes/"
         );
         
         const recipes = response.data;

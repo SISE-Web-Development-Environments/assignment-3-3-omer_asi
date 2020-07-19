@@ -95,15 +95,14 @@ export default {
     async Login() {
       try {
         const response = await this.axios.post(
-          //"https://ass32.herokuapp.com/auth/Login",
-          "http://localhost:3000/auth/Login",
+          "https://ass32.herokuapp.com/auth/Login",
+          //"http://localhost:3000/auth/Login",
           {
             username: this.form.username,
             password: this.form.password,
             withCredentials: true
           }
         );
-        console.log(response);
         this.$root.loggedIn = true;
         //console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);

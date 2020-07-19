@@ -83,7 +83,6 @@ const shared_data = {
   logout() {
     Vue.$cookies.remove("session")
     Vue.$cookies.remove("_xsrf")
-    console.log(document.cookie)
     localStorage.removeItem("username");    
     this.username = undefined;
   },

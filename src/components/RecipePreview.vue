@@ -1,13 +1,11 @@
 <template>
   <b-container>
     <b-row>
-
-
         <b-col>
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.metadata.Id } }">
     <div class="recipe-body w3-bar-item" @mouseover="hover = true" @mouseleave="hover = false">
-      <img rounded alt="Rounded image" :src="recipe.metadata.Picture" />
+      <b-img  rounded alt="Rounded image" :src="recipe.metadata.Picture" />
     </div>
     </router-link>
     </b-col>
@@ -39,6 +37,9 @@ export default {
     return {
       hover: false,
     };
+  },
+  async created(){
+    if(!this.recipe.metadata.Picture){this.recipe.metadata.Picture="https://res.cloudinary.com/onag/image/upload/v1595063148/12753943_fp8zsx.jpg";}
   },
   props: {
     recipe: {

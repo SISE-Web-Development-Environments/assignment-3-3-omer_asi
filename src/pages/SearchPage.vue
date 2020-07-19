@@ -79,6 +79,7 @@
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button type="submit" variant="primary" style="width:250px; float: right;" class="ml-5 w-75">Search</b-button>     
     </b-form>
+    <br>  
     <b-alert
       class="mt-2"
       v-if="form.submitError"
@@ -88,7 +89,6 @@
     >
       Search result are empty: {{ form.submitError }}
     </b-alert>
-    <br>  
     <p><br></p>
   <b-container v-if="recipes.length != 0">
   <br>
@@ -142,8 +142,7 @@ export default {
   validations: {
     form: {
       query: {
-        required,
-        alpha
+        required        
       }
     }
   },
@@ -164,10 +163,6 @@ export default {
     }
 
   },
-  beforeDestroy(){
-    sessionStorage.setItem("lastSearchResults",JSON.stringify(this.recipes))
-    sessionStorage.setItem("lastSearchParams",JSON.stringify(this.form))
-  },
   methods: {
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -175,12 +170,14 @@ export default {
     },
     async onSubmit() {
       try {
+        this.form.submitError=undefined;
         this.$v.form.$touch();
           if (this.$v.form.$anyError) {
           return;
         }
         const response = await this.axios.get(
-          `http://localhost:3000/search/${this.form.query}/?SearchSize=${this.form.size}&Intolerance=${this.form.intolerance}&Diet=${this.form.diet}&Cuisine=${this.form.cuisine}`  
+          `https://ass32.herokuapp.com/search/${this.form.query}/?SearchSize=${this.form.size}&Intolerance=${this.form.intolerance}&Diet=${this.form.diet}&Cuisine=${this.form.cuisine}`  
+          //`http://localhost:3000/search/${this.form.query}/?SearchSize=${this.form.size}&Intolerance=${this.form.intolerance}&Diet=${this.form.diet}&Cuisine=${this.form.cuisine}`  
         );
         var size = Object.keys(response.data).length;
         if(size===0){this.form.submitError = "No results for given parameters."}
@@ -191,6 +188,8 @@ export default {
         }
         //this.recipes.push(...recipes);
         this.sort();
+        sessionStorage.setItem("lastSearchResults",JSON.stringify(this.recipes))
+        sessionStorage.setItem("lastSearchParams",JSON.stringify(this.form))
       } catch (err) {
         this.form.submitError = err.response.data.message;
       }

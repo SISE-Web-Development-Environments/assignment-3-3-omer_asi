@@ -68,8 +68,8 @@ export default {
       try {
         //console.log(this.$route.params.recipeId)
         response = await this.axios.get(
-          "http://localhost:3000/recipes/" + this.$route.params.recipeId, { withCredentials: true }
-          //"https://ass32.herokuapp.com/recipes/" + this.$route.params.recipeId, { withCredentials: true }
+          //"http://localhost:3000/recipes/" + this.$route.params.recipeId, { withCredentials: true }
+          "https://ass32.herokuapp.com/recipes/" + this.$route.params.recipeId, { withCredentials: true }
         );
 
         // console.log("response.status", response.status);
@@ -94,6 +94,7 @@ export default {
       let vegan = response.data.FullRecipe.RecipePreview.IsVegan
       let glutenFree = response.data.FullRecipe.RecipePreview.IsGlutenFree
       let numOfDished = response.data.FullRecipe.RecipeInner.numdishes
+      if(!response.data.FullRecipe.RecipePreview.metadata.Picture){image="https://res.cloudinary.com/onag/image/upload/v1595063148/12753943_fp8zsx.jpg";}
 
       let recipeViewed
       let isFavorites 

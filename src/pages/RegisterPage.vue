@@ -277,8 +277,8 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          //"https://ass32.herokuapp.com/auth/Register",
-          "http://localhost:3000/auth/Register",
+          "https://ass32.herokuapp.com/auth/Register",
+          //"http://localhost:3000/auth/Register",
           {
             username: this.form.username,
             fname: this.form.firstName,

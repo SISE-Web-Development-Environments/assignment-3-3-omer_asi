@@ -11,8 +11,8 @@
                 try {
                 //console.log(this.recipe)
                 const response = await this.axios.post(
-                  "http://localhost:3000/userrecipes/addfavorites/" + this.recipe.metadata.Id, { withCredentials: true }
-                  //"https://ass32.herokuapp.com/recipes/RandomRecipes/"
+                  //"http://localhost:3000/userrecipes/addfavorites/" + this.recipe.metadata.Id, { withCredentials: true }
+                  "https://ass32.herokuapp.com/userrecipes/addfavorites/" + this.recipe.metadata.Id, { withCredentials: true }
                 );
                 if(this.recipe.userIndications){
                     this.recipe.userIndications.IsUserFavorite=true;

@@ -1,5 +1,11 @@
 <template>
   <b-container class="w3-main w3-content w3-padding">
+    <div class="w3-row-padding w3-padding-16 w3-center">
+      <h3 :title="recipe.name" class="recipe-title">
+         {{ recipe.name }}
+      </h3>
+      <p v-if="recipe.time">{{ recipe.time }} minutes</p>
+   </div>
   <router-link
     :to="{ name: 'familyUserRecipe', params: { name: recipe.name, picture: recipe.picture, time: recipe.time, instructions: recipe.instructions,
                                   ingredients: recipe.ingredients, extraInfo: recipe.extraInfo, occasion: recipe.occasion, owner: recipe.owner } }">
@@ -7,12 +13,6 @@
       <b-img rounded alt="Rounded image" :src="recipe.picture" class="recipe-image" />
     </div>
   </router-link>
-    <div class="w3-row-padding w3-padding-16 w3-center">
-      <h3 :title="recipe.name" class="recipe-title">
-        {{ recipe.name }}
-      </h3>
-      <p v-if="recipe.time">{{ recipe.time }} minutes</p>
-    </div>
   </b-container>
 </template>
 

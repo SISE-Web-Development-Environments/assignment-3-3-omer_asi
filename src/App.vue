@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-bind:style="{ backgroundImage: 'url(https://res.cloudinary.com/onag/image/upload/v1595090657/lukas-blazek-f-TWhXOrLiU-unsplash_dcng1p.jpg)' }">
-    <b-navbar toggleable="lg" type="dark" variant="success">
+    <b-navbar id="navbar" toggleable="lg" type="dark" variant="success">
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -29,6 +29,7 @@
 
       </b-collapse>
     </b-navbar>
+    <p><br></p>
     <router-view />
   </div>
 </template>
@@ -38,15 +39,14 @@ export default {
   name: "App",
   methods: {
     async Logout() {
+      sessionStorage.clear();
       const response = await this.axios.post(
-          //"https://ass32.herokuapp.com/auth/Logout",
-          "http://localhost:3000/auth/Logout",
+          "https://ass32.herokuapp.com/auth/Logout",
+          //"http://localhost:3000/auth/Logout",
           {
             withCredentials: true
           }
       );
-      console.log(response)
-      console.log(document.cookie)
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
       this.$router.push("/").catch(() => {
@@ -72,5 +72,10 @@ export default {
   background-attachment: fixed;
 }
 
+#navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
 
 </style>

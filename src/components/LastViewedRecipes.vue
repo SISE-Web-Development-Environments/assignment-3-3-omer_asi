@@ -34,8 +34,8 @@ export default {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
-          "http://localhost:3000/userrecipes/lastRecipes"
-           //"https://ass32.herokuapp.com/userrecipes/lastRecipes"
+          //"http://localhost:3000/userrecipes/lastRecipes"
+           "https://ass32.herokuapp.com/userrecipes/lastRecipes"
         );
 
         const recipes = response.data;
