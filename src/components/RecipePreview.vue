@@ -71,7 +71,7 @@ max-height:100%;
 }
 
 .recipe-body{
-  margin-bottom: 150px;
+  margin-bottom: 180px;
 }
 
 .recipe-body:hover {
