@@ -19,6 +19,8 @@
                 {{ line }} 
               </li>
             </ul>
+          </div>
+          <div class="wrapped">
             Instructions:
             <ol>
               <li v-for="line in splitedIns" :key="line">
@@ -90,6 +92,11 @@ export default {
 </script>
 
 <style scoped>
+div{
+  font-family: "Karma", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
 .wrapper {
   display: flex;
 }
