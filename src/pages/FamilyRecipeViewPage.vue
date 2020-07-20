@@ -5,7 +5,7 @@
         <b-jumbotron class="title w3-center w3-padding-16"  :header="recipe.title"></b-jumbotron>
         <b-img rounded alt="Rounded image" :src="recipe.image" class="center" />
       </div>
-      <div class="recipe-body">
+      <div class="">
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
