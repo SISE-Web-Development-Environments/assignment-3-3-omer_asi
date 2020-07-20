@@ -1,0 +1,467 @@
+openapi: 3.0.0
+info:
+  title: Recipes
+  description: |
+    This is a Recipes api server. here you can look after all kind of recipes, make those you like your favorites, and even same some of your own.
+  contact:
+    email: omernag@post.bgu.ac.il
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/omernag/Recipes/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://localhost:3000
+  description: Recipes server
+tags:
+- name: recipes
+  description: Access to Recipes Data
+- name: search
+  description: Search recipe functionality
+- name: userrecipes
+  description: Manage user's recipes
+- name: auth
+  description: User authentication
+paths:
+  /recipes/{recipeid}:
+    get:
+      tags:
+      - recipes
+      summary: Get all recipe data
+      description: Return all Recipe data - preview and inner fields.
+      parameters:
+      - name: recipeid
+        in: path
+        description: Requested recipe ID
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/RecipeId'
+      responses:
+        "200":
+          description: all the data about a recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: invalid recipeid
+  /recipes/randomRecipes:
+    get:
+      tags:
+      - recipes
+      summary: Get three random Recipes
+      description: Return preview data
+      responses:
+        "200":
+          description: data about 3 random recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+  /search/{query}:
+    get:
+      tags:
+      - search
+      summary: Search all recipe data
+      description: Search recipe by query and filters. return recipe preview
+      parameters:
+      - name: query
+        in: path
+        description: Search query
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/RecipeName'
+      - name: searchData
+        in: query
+        description: query & tags data
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/SearchData'
+      responses:
+        "200":
+          description: all the data about a recipe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "204":
+          description: no recipes to show
+        "400":
+          description: invalid parameters
+  /userrecipes/favorites:
+    get:
+      tags:
+      - userrecipes
+      summary: Get all user's favorite recipes
+      description: by user identifier, return all his favorite list recipes.
+      responses:
+        "200":
+          description: data of all user's favorite recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "204":
+          description: user favorite recipes is empty
+      security:
+      - cookieAuth: []
+  /userrecipes/addfavorites/{recipeid}:
+    post:
+      tags:
+      - userrecipes
+      summary: Add recipe to user's favorites.
+      description: Add recipe to user's favorites.
+      parameters:
+      - name: recipeid
+        in: path
+        description: recipe ID to add to user's favorites.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/RecipeId'
+      responses:
+        "200":
+          description: Recipe Added Succesfully
+        "400":
+          description: invalid recipeid
+      security:
+      - cookieAuth: []
+  /userrecipes/lastRecipes:
+    get:
+      tags:
+      - userrecipes
+      summary: Get user's last 3 viewed recipes
+      description: Return preview data of user's 3 last watched recipes.
+      responses:
+        "200":
+          description: data about user's last 3 viewed recipes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "204":
+          description: user last viewed recipes is empty
+      security:
+      - cookieAuth: []
+  /userrecipes/userPrivateRecipes:
+    get:
+      tags:
+      - userrecipes
+      summary: Return all user's private recipes he saved.
+      description: Return user's private recipes.
+      responses:
+        "200":
+          description: data about user's private recipes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/userRecipes'
+        "204":
+          description: no saved recipes
+      security:
+      - cookieAuth: []
+  /userrecipes/familyRecipes:
+    get:
+      tags:
+      - userrecipes
+      summary: Return all user's family recipes he saved.
+      description: Return user's family recipes.
+      responses:
+        "200":
+          description: data about user's family recipes.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/familyRecipes'
+        "204":
+          description: no family saved recipes
+      security:
+      - cookieAuth: []
+  /auth/Login:
+    post:
+      tags:
+      - auth
+      summary: Login & Authentication
+      description: Boolean get of is vaid user login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        "200":
+          description: |
+            login sucessed. The session ID is returned in a cookie named 'session', You need to include this cookie in subsequent requests.
+          headers:
+            Set-Cookie:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: session=72j2341h2jk21jnhjljk3j
+        "400":
+          description: ivalid credentials
+  /auth/Register:
+    post:
+      tags:
+      - auth
+      summary: Register new user
+      description: User Registration form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        "200":
+          description: new user created
+        "400":
+          description: ivalid credentials
+        "409":
+          description: username already exists
+  /auth/Logout:
+    post:
+      tags:
+      - auth
+      summary: Logout from server
+      description: Delete session
+      responses:
+        "200":
+          description: logout succeeded
+      security:
+      - cookieAuth: []
+components:
+  schemas:
+    SearchData:
+      type: object
+      properties:
+        SearchSize:
+          type: integer
+          description: num of search results
+          default: 5
+          enum:
+          - 5
+          - 10
+          - 15
+        Intolerance:
+          type: string
+          description: optional field. each one of those values 'https://spoonacular.com/food-api/docs#Intolerances'
+          example: Dairy
+        Diet:
+          type: string
+          description: optional field. each one of those values 'https://spoonacular.com/food-api/docs#Diets'
+          example: Gluten Free
+        Cuisine:
+          type: string
+          description: optional field. each one of those values 'https://spoonacular.com/food-api/docs#Cuisines'
+          example: Jewish
+      description: all search query fields
+    RecipeName:
+      type: string
+      description: open string field for recipe name search & return field
+      example: banana bread
+    RecipeId:
+      type: string
+      description: Recipe identifer
+      example: banana bread
+    UserName:
+      maxLength: 8
+      minLength: 3
+      type: string
+      description: user's username. english letters only
+      example: omernag
+    Password:
+      maxLength: 10
+      minLength: 5
+      type: string
+      description: user's password. atleast 1 digit & 1 special note.
+      example: password%12
+    FirstName:
+      type: string
+      description: user's first name
+      example: omer
+    RecipePreview:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/RecipeMeta'
+        userIndications:
+          $ref: '#/components/schemas/UserIndications'
+        Time:
+          type: integer
+          description: Time takes to make the recipe - in minutes
+          example: 60
+        Popularity:
+          type: integer
+          description: Recipe amount of users likes
+          example: 578
+        IsVegan:
+          type: boolean
+          description: True if the recipe is vegan
+        IsGlutenFree:
+          type: boolean
+          description: True if the recipe is gluten free
+          example: true
+      description: Recipe's preview data.
+    UserIndications:
+      type: object
+      properties:
+        DidUserWatched:
+          type: boolean
+          description: true if user ever watched that recipe
+          example: true
+        IsUserFavorite:
+          type: boolean
+          description: true if user's favorites contains the recipe
+          example: true
+      description: History & Favorite data.
+    RecipeMeta:
+      type: object
+      properties:
+        Id:
+          $ref: '#/components/schemas/RecipeId'
+        Picture:
+          type: string
+          description: url to jpg
+          example: https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/16714-birthday-cake-600x600.jpg?ext=.jpg
+        Name:
+          $ref: '#/components/schemas/RecipeName'
+      description: Recipe's meta data.
+    RecipeInner:
+      type: object
+      properties:
+        ingredients:
+          type: string
+        instructions:
+          type: string
+        numdishes:
+          type: integer
+      description: all recipe data which isnt part of the preview.
+    FullRecipe:
+      properties:
+        RecipePreview:
+          $ref: '#/components/schemas/RecipePreview'
+        RecipeInner:
+          $ref: '#/components/schemas/RecipeInner'
+      description: all recipe data.
+    Register:
+      type: object
+      properties:
+        username:
+          $ref: '#/components/schemas/UserName'
+        fname:
+          $ref: '#/components/schemas/FirstName'
+        lname:
+          type: string
+          description: user's first name
+          example: Nagar
+        contry:
+          type: string
+          description: contry listed in 'https://restcountries.eu/rest/v2/all'
+          example: Israel
+        password:
+          $ref: '#/components/schemas/Password'
+        email:
+          type: string
+          description: user's email.
+          example: example@email.com
+        profilePic:
+          type: string
+          description: url of picture
+          example: https://cdn.britannica.com/51/188751-050-D4E1CFBC/Beyonce-2010.jpg
+      description: all data needed to create new user
+    Login:
+      type: object
+      properties:
+        username:
+          $ref: '#/components/schemas/UserName'
+        password:
+          $ref: '#/components/schemas/Password'
+      description: all data needed to login
+    familyRecipes:
+      type: object
+      properties:
+        owner:
+          type: string
+          description: family member.
+          example: grandma
+        occasion:
+          type: string
+          description: made on which occasion / holyday
+          example: passover
+        name:
+          type: string
+          description: recipe name.
+          example: grandma's chicken salad
+        picture:
+          type: string
+          description: recipe picture url
+          example: https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/16714-birthday-cake-600x600.jpg?ext=.jpg
+        ingredients:
+          type: string
+        instructions:
+          type: string
+        extraInfo:
+          type: string
+      description: a family member recipe
+    userRecipes:
+      type: object
+      properties:
+        name:
+          type: string
+          description: recipe name.
+          example: grandma's chicken salad
+        picture:
+          type: string
+          description: recipe picture url
+          example: https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/16714-birthday-cake-600x600.jpg?ext=.jpg
+        Time:
+          type: integer
+          description: Time takes to make the recipe - in minutes
+          example: 60
+        numdishes:
+          type: integer
+        IsVegan:
+          type: boolean
+          description: True if the recipe is vegan
+        IsGlutenFree:
+          type: boolean
+          description: True if the recipe is gluten free
+          example: true
+        ingredients:
+          type: string
+        instructions:
+          type: string
+        extraInfo:
+          type: string
+      description: registed user private recipe
+    inline_response_200:
+      type: object
+      properties:
+        FullRecipe:
+          $ref: '#/components/schemas/FullRecipe'
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      name: session
+      in: cookie
